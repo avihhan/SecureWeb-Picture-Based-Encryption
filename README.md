@@ -1,2 +1,7 @@
 # SecureWeb-Picture-Based-Encryption
-The development of a full stack website using modern technologies like the MERN stack (MongoDB, Express.js, React.js, Node.js) includes robust security measures such as picture-based encryption and bcrypt encryption for passwords.
+
+A full stack website will be developed using modern technologies, implementing a client-server architecture with the MERN stack (MongoDB, Express.js, React.js, Node.js). Security will be enhanced with a picture-based encryption method and bcrypt encryption for passwords, providing a double layer of protection against unauthorized access.
+Motivation for this approach stems from rising cybersecurity threats, the importance of safeguarding user data, building trust with users, and innovating in security measures.
+Efficiency in client-server communication is improved using Axios and CORS to connect client, server and database seamlessly. The app streamlined HTTP requests, request cancelation, concurrent request handling, interceptors, and robust error handling.
+Picture based encryption and Hashing n’ salting techniques was used to secure user passwords, preventing reverse-engineering attacks providing a double security to the network. Authentication is done in such a way that verification of user’s credential is done both at the server side and the client side, making the network secure from decryption softwares like John the Ripper commonly used by hackers to crack password even with encryption.
+Benefits of picture-based encryption include enhanced security, improved user experience, reduced friction during onboarding, and mitigation of common security vulnerabilities. A demonstration will be conducted to showcase the effectiveness of this approach.
