@@ -1,0 +1,7 @@
+mongodb ----------------
+user: avihanarya111
+password: zh9k4CN8PhRlyVdZ
+
+run program --------------
+server side: node --env-file=config.env server
+client side: npm run dev

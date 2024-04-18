@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Metadata Reader</title>
+  </head>
+  <body>
+    <!-- File input element -->
+    <input type="file" id="fileInput" accept="image/*" />
+
+    <!-- Include exif-js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+
+    <script>
+      if (typeof EXIF !== "undefined") {
+        // Your code that uses EXIF goes here
+      } else {
+        console.error(
+          "EXIF is not defined. Make sure exif-js is properly included."
+        );
+      }
+      // Function to read metadata from an image file
+      // Function to read metadata from an image file
+      function readImageMetadata(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          // Event triggered when the file reading is complete
+          reader.onload = function (event) {
+            const image = new Image();
+            image.src = event.target.result;
+
+            // Function to handle EXIF data extraction
+            function handleExifData() {
+              EXIF.getData(image, function () {
+                const exifData = EXIF.getAllTags(this);
+                resolve(exifData);
+              });
+            }
+
+            // If the image is already loaded, extract EXIF data
+            if (image.complete) {
+              handleExifData();
+            } else {
+              // If not, wait for the 'load' event to occur
+              image.onload = handleExifData;
+            }
+          };
+
+          // Read the image file as a data URL
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // Example usage
+      const input = document.getElementById("fileInput");
+
+      input.addEventListener("change", async function (event) {
+        const file = event.target.files[0];
+        const metadata = await readImageMetadata(file);
+
+        const creationDateTime =
+          metadata.DateTimeOriginal || metadata.DateTimeDigitized;
+        const dimension = {
+          x_dim: metadata.PixelXDimension,
+          y_dim: metadata.PixelYDimension,
+        };
+
+        if (!creationDateTime || !dimension.x_dim || !dimension.y_dim) {
+          throw new Error("Required metadata not found.");
+        }
+        console.log("date_time:", creationDateTime, "\n", "dim_", dimension);
+      });
+    </script>
+  </body>
+</html>
